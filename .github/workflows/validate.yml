@@ -1,0 +1,55 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Manifests are valid JSON
+        run: |
+          jq empty .claude-plugin/marketplace.json
+          jq empty plugins/fb-standards/.claude-plugin/plugin.json
+          jq empty plugins/fb-standards/hooks/hooks.json
+          test -f CHANGELOG.md && test -f SECURITY.md
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: claude plugin validate
+        run: |
+          npm install -g @anthropic-ai/claude-code@2.1.319
+          claude plugin validate . --strict
+          claude plugin validate plugins/fb-standards --strict
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Content checks (agents, skills, rules, references)
+        run: python3 scripts/validate.py
+
+      - name: shellcheck
+        run: shellcheck -S warning plugins/fb-standards/hooks/*.sh plugins/fb-standards/scripts/*.sh scripts/*.sh
+
+      - name: Hook and script tests
+        run: |
+          git config --global user.email ci@example.com
+          git config --global user.name ci
+          python3 -m unittest discover -s tests/hooks -v
+
+      - name: Version bump
+        env:
+          BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
+        run: bash scripts/check-version-bump.sh "$BASE"

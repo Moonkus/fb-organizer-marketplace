@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "extraKnownMarketplaces": {
+    "fb-organizer-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "Moonkus/fb-organizer-marketplace"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "fb-standards@fb-organizer-marketplace": true,
+    "context7@claude-plugins-official": true,
+    "chrome-devtools-mcp@claude-plugins-official": true
+  },
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)",
+      "Read(./**/secrets/**)",
+      "Read(./**/client_secret*.json)",
+      "Read(./**/credentials.json)",
+      "Read(./**/token.json)",
+      "Edit(./.env)",
+      "Edit(./**/*.pem)",
+      "Edit(./**/*.key)",
+      "Edit(./**/secrets/**)",
+      "Edit(./**/client_secret*.json)",
+      "Edit(./**/credentials.json)",
+      "Edit(./**/token.json)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(scp:*)",
+      "Bash(rsync:*)",
+      "Bash(nc:*)",
+      "Bash(ssh:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)"
+    ],
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ]
+  }
+}

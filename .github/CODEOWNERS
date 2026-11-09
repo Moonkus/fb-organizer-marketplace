@@ -1,0 +1,7 @@
+# Review routing. Not enforced as a required approval while there is a single maintainer —
+# GitHub does not let an author approve their own PR. Turn on "Require review from Code Owners"
+# in branch protection once a second maintainer joins.
+*                                   @Moonkus
+/plugins/fb-standards/hooks/        @Moonkus
+/plugins/fb-standards/scripts/      @Moonkus
+/plugins/fb-standards/templates/    @Moonkus

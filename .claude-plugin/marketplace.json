@@ -1,0 +1,14 @@
+{
+  "name": "fb-organizer-marketplace",
+  "owner": { "name": "a.kharchuk", "email": "a.kharchuk@spd-ukraine.com" },
+  "metadata": { "description": "Claude Code standards for the fb-organizer feedback app" },
+  "plugins": [
+    {
+      "name": "fb-standards",
+      "source": "./plugins/fb-standards",
+      "description": "Engineering standards + agent pipeline for the Django/HTMX stack",
+      "category": "standards",
+      "keywords": ["django", "htmx", "python", "standards"]
+    }
+  ]
+}
