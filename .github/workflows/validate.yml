@@ -11,6 +11,9 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    env:
+      # only a "key is set" flag at job level — the secret itself reaches the eval step alone
+      HAS_EVAL_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -48,6 +51,14 @@ jobs:
           git config --global user.email ci@example.com
           git config --global user.name ci
           python3 -m unittest discover -s tests/hooks -v
+
+      - name: Skill trigger evals (only when ANTHROPIC_API_KEY is set)
+        if: env.HAS_EVAL_KEY == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: >
+          claude plugin eval plugins/fb-standards --runs 1 --ablation none --concurrency 4
+          --max-cost-usd 3 --model claude-sonnet-5-5 --trust-plugin --no-publish
 
       - name: Version bump
         env:

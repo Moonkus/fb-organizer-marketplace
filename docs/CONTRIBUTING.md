@@ -49,6 +49,21 @@ bash scripts/check-version-bump.sh origin/main   # before pushing plugin changes
 python3 -m unittest discover -s tests/hooks
 ```
 
+## Skill trigger evals
+
+`plugins/fb-standards/evals/` holds 20 cases: for each skill, 3 prompts (English and Ukrainian) that must
+invoke it and 2 near-misses that must not. Cases allow only `Skill` and read tools, so nothing is committed
+or pushed. Run them after changing a skill's `description` (one run ≈ 45 s, ≈ $1):
+
+```bash
+claude plugin eval plugins/fb-standards --runs 1 --ablation none --concurrency 4 --max-cost-usd 3 \
+  --model claude-sonnet-5-5 --trust-plugin --no-publish
+```
+
+A failing trigger case means the description needs sharper "Use whenever…" phrases; a failing no-trigger
+case means it is too broad. Results go to `evals/results/` (gitignored). CI runs the suite only when the
+`ANTHROPIC_API_KEY` repository secret is set.
+
 ## Versioning (semver)
 
 The version lives **only** in `plugins/fb-standards/.claude-plugin/plugin.json` — the docs say not to set it

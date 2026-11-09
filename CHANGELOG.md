@@ -16,3 +16,5 @@ bumps MAJOR.
 - Hooks: SessionStart and SubagentStart rule injection; secret scan, sensitive-command guard, git push guard
   (egress + force), git safety guard, secret-file guard (Read/Write/Edit).
 - `scripts/scan-changes.sh` — staged/range scan for secrets, dumps, forbidden and large files.
+- Skills: trigger phrases in English and Ukrainian, `$ARGUMENTS`, checklists and Gotchas from real use.
+- Skill trigger evals (`evals/`, 20 cases) — `claude plugin eval`; optional CI step.
