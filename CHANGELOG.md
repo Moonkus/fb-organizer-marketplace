@@ -18,3 +18,5 @@ bumps MAJOR.
 - `scripts/scan-changes.sh` — staged/range scan for secrets, dumps, forbidden and large files.
 - Skills: trigger phrases in English and Ukrainian, `$ARGUMENTS`, checklists and Gotchas from real use.
 - Skill trigger evals (`evals/`, 20 cases) — `claude plugin eval`; optional CI step.
+- Hooks: commit gate (`pre-bash-commit-scan.sh` — staged scan on every `git commit`, `-a` refused) and
+  prompt secret filter (`user-prompt-secret-scan.sh`, UserPromptSubmit).

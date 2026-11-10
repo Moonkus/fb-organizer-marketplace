@@ -20,7 +20,9 @@ the project-specific roles, rules and guards.
 |---|---|---|---|
 | `session-start-context.sh` | SessionStart | pin `core.md` + index topic rules | fail-open, visible warning |
 | `subagent-start-context.sh` | SubagentStart | fb-standards agents: `core.md` + rules from their `rules:`; other subagents (Explore, Plan…): `core.md` + topic index. Must fit 10 000 chars — `validate.py` checks | fail-open, stderr warning |
+| `user-prompt-secret-scan.sh` | UserPromptSubmit | cancel a prompt that contains a secret (`secret-patterns.txt`) before it reaches the model or transcript | fail-open (never locks the user out) |
 | `pre-bash-secret-scan.sh` | PreToolUse Bash | block commands containing secrets (`secret-patterns.txt`) | fail-closed |
+| `pre-bash-commit-scan.sh` | PreToolUse Bash | on any `git commit`: run `scripts/scan-changes.sh` on the staged diff (secrets, dumps, `.env`/keys, `.qa/`, files > 10 MB); refuse `git commit -a` | fail-closed when the scan cannot run |
 | `pre-bash-git-push-guard.sh` | PreToolUse Bash | push only to `github.com/Moonkus/…` (exfiltration guard); refuse `--force`/`-f`/`--mirror`/`+refspec` anywhere in the push; `--force-with-lease` only off the default branch | pass-through without `jq` (secret-scan already blocks) |
 | `pre-bash-sensitive-guard.py` | PreToolUse Bash | refuse commands naming a secret file (`cat .env`, `cp credentials.json …`; `.env.example` allowed) and network tools in command position anywhere (`/usr/bin/curl`, `env curl`, `xargs wget`, `ssh`…) — permission rules only match prefixes | python3 stdlib; quoted multi-word strings are prose, not paths |
 | `pre-bash-git-safety-guard.py` | PreToolUse Bash | **ask** before `reset --hard`, `clean -f`, `checkout -- .`, `branch -D`…; refuse ref-less `stash pop/apply/drop`; plugin subagents get read-only git | python3 stdlib |

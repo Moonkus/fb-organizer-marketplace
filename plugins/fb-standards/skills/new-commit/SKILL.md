@@ -20,6 +20,8 @@ Arguments (optional): `$ARGUMENTS` — paths to stage; if empty, propose the pat
 
 ## Gotchas
 
+- **A hook re-checks every commit.** `pre-bash-commit-scan.sh` runs the same scan on any `git commit` and
+  refuses `git commit -a` — stage explicit paths first.
 - **Plan mode blocks commits.** If the session is in plan mode, say so and stop — the user leaves plan mode.
 - **Run the scan from the repo root.** Elsewhere it exits 2 ("not a git repository" / wrong paths).
 - **Plugin repo (`fb-organizer-marketplace`).** A change under `plugins/` needs a higher `version` in

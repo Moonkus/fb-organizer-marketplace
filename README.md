@@ -36,7 +36,7 @@ Things that bite:
 
 | Plugin | What it gives | Version |
 |---|---|---|
-| `fb-standards` | always-on core rules + 8 topic rules; 9 role agents with a pipeline; skills `new-commit`, `new-pr`, `review`, `django-feature`; guard hooks (secrets, sensitive commands, push egress/force, destructive git) | see `plugins/fb-standards/.claude-plugin/plugin.json`, history in [CHANGELOG.md](CHANGELOG.md) |
+| `fb-standards` | always-on core rules + 8 topic rules; 9 role agents with a pipeline; skills `new-commit`, `new-pr`, `review`, `django-feature`; guard hooks (secrets in prompts and commands, sensitive commands, commit scan, push egress/force, destructive git) | see `plugins/fb-standards/.claude-plugin/plugin.json`, history in [CHANGELOG.md](CHANGELOG.md) |
 
 How it works: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
