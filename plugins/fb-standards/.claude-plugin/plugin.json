@@ -1,0 +1,8 @@
+{
+  "name": "fb-standards",
+  "description": "Engineering standards, guard hooks and agent pipeline for the fb-organizer Django/HTMX stack",
+  "version": "0.1.0",
+  "author": { "name": "a.kharchuk", "email": "a.kharchuk@spd-ukraine.com" },
+  "keywords": ["django", "htmx", "python", "postgresql", "standards"],
+  "license": "UNLICENSED"
+}
